@@ -52,8 +52,48 @@ class ModelTrainer:
                 "AdaBoost Regressor": AdaBoostRegressor(),
             }
 
+            parameters = {
+                "Decision Tree": {
+                    "criterion": [
+                        "squared_error",
+                        "friedman_mse",
+                        "absolute_error",
+                        "poisson",
+                    ],
+                },
+                "Random Forest": {
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                    "max_depth": [2, 8, 32, None],
+                },
+                "Gradient Boosting": {
+                    "learning_rate": [0.1, 0.001, 0.5, 0.3],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                    "max_depth": [2, 8, 32, None],
+                },
+                "Linear Regression": {},
+                "XGB Regressor": {
+                    "learning_rate": [0.1, 0.001, 0.5, 0.3],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                },
+                "CatBoosting Regressor": {
+                    "depth": [6, 8, 10],
+                    "learning_rate": [0.01, 0.05, 0.1],
+                    "iterations": [30, 50, 100],
+                },
+                "AdaBoost Regressor": {
+                    "learning_rate": [0.1, 0.001, 0.5, 0.3],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                },
+                "K-Neighbors Regressor": {
+                    "n_neighbors": [3, 5, 7, 9],
+                    "weights": ["uniform", "distance"],
+                    "algorithm": ["auto", "ball_tree", "kd_tree", "brute"],
+                    "metric": ["euclidean", "manhattan", "minkowski"],
+                },
+            }
+
             model_report: dict = evaluate_models(
-                X_train, y_train, X_test, y_test, models
+                X_train, y_train, X_test, y_test, models, parameters
             )
 
             # To get the best model score from the dictionary
